@@ -84,4 +84,9 @@ public class Jugador {
         avion.cambiarAltitud(3000);
         avion.setPosX(500);
     }
+
+    @Override
+    public String toString() {
+        return "Jugador{puntos=" + puntos + ", vidas=" + vidas + ", avion=" + avion + "}";
+    }
 }

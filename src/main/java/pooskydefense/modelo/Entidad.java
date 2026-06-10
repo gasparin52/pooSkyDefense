@@ -51,7 +51,7 @@ public abstract class Entidad {
     public abstract void mover(Direccion d);
 
     /** Funcion utilitaria para encerrar un valor entre minimo y maximo. */
-    protected double limitar(double valor, double minimo, double maximo) {
+    protected static double limitar(double valor, double minimo, double maximo) {
         return Math.max(minimo, Math.min(maximo, valor));
     }
 }

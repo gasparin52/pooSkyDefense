@@ -17,10 +17,8 @@ public class Avion extends Entidad {
 
     /** Crea un avion con energia completa y posicion inicial valida. */
     public Avion(double posX, double altitud) {
-        super(posX, ALTITUD_MINIMA_SEGURA);
+        super(posX, limitar(altitud, ALTITUD_MINIMA_SEGURA, ALTITUD_MAXIMA_SEGURA));
         this.energia = ENERGIA_INICIAL;
-        cambiarAltitud(altitud);
-        setPosX(posX);
     }
 
     @Override
@@ -64,5 +62,10 @@ public class Avion extends Entidad {
     /** Restaura la energia completa del avion. */
     public void restaurar() {
         energia = ENERGIA_INICIAL;
+    }
+
+    @Override
+    public String toString() {
+        return "Avion{posX=" + posX + ", altitud=" + altitud + ", energia=" + energia + "}";
     }
 }

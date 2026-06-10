@@ -60,4 +60,11 @@ public class Misil extends Entidad {
     public boolean isActivo() {
         return activo;
     }
+
+    @Override
+    public String toString() {
+        return "Misil{posX=" + posX + ", altitud=" + altitud
+                + ", velCaida=" + velCaida + ", altDetonacion=" + altDetonacion
+                + ", activo=" + activo + "}";
+    }
 }

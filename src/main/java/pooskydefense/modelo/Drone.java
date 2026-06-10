@@ -49,7 +49,7 @@ public class Drone extends Entidad {
     }
 
     /** Elige si arranca desde la izquierda o la derecha y define su altitud. */
-    public void asignarExtremoAleatorio() {
+    private void asignarExtremoAleatorio() {
         boolean desdeIzquierda = ThreadLocalRandom.current().nextBoolean();
         this.posX = desdeIzquierda ? POSICION_MINIMA_X : POSICION_MAXIMA_X;
         this.altitud = ThreadLocalRandom.current().nextDouble(ALTITUD_MINIMA_DRON, ALTITUD_MAXIMA_DRON + 1);
@@ -83,7 +83,10 @@ public class Drone extends Entidad {
 
     /** Sirve para saber si ya llego al borde contrario y debe salir de escena. */
     public boolean llegoAlBordeOpuesto() {
-        return posX <= POSICION_MINIMA_X || posX >= POSICION_MAXIMA_X;
+        if (direccionActual == Direccion.DERECHA) {
+            return posX >= POSICION_MAXIMA_X;
+        }
+        return posX <= POSICION_MINIMA_X;
     }
 
     /** Devuelve la velocidad horizontal del drone. */
@@ -99,5 +102,12 @@ public class Drone extends Entidad {
     /** Informa si ya fue usado antes en este nivel. */
     public boolean fueDesplegado() {
         return desplegado;
+    }
+
+    @Override
+    public String toString() {
+        return "Drone{posX=" + posX + ", altitud=" + altitud
+                + ", velocidad=" + velocidad + ", activo=" + activo
+                + ", desplegado=" + desplegado + ", dir=" + direccionActual + "}";
     }
 }

@@ -4,18 +4,28 @@ package pooskydefense.modelo;
  * Resultado de la detonacion de un misil.
  * La explosion mide distancia al avion y delega el efecto concreto
  * en una estrategia que decide puntos, dano o perdida de vida.
+ *
+ * Extiende Entidad porque es un objeto posicionado en el mundo,
+ * pero no se mueve, por lo que mover() es un no-op.
  */
-public class Explosion {
+public class Explosion extends Entidad {
 
-    /** Posicion horizontal donde ocurrio la explosion. */
-    private final double posX;
-    /** Altitud donde ocurrio la explosion. */
-    private final double altitud;
+    /** Umbral de distancia para considerar la explosion como lejana. */
+    private static final double DISTANCIA_LEJANA = 150;
+    /** Umbral de distancia para considerar la explosion como mediana. */
+    private static final double DISTANCIA_MEDIANA = 80;
+    /** Umbral de distancia para considerar la explosion como cercana. */
+    private static final double DISTANCIA_CERCANA = 20;
 
     /** Crea una explosion en la posicion recibida. */
     public Explosion(double posX, double altitud) {
-        this.posX = posX;
-        this.altitud = altitud;
+        super(posX, altitud);
+    }
+
+    /** Las explosiones no se mueven; este metodo no hace nada. */
+    @Override
+    public void mover(Direccion d) {
+        // No-op: las explosiones son estaticas.
     }
 
     /** Calcula la distancia euclidiana entre la explosion y el avion. */
@@ -32,38 +42,22 @@ public class Explosion {
         efecto.aplicar(jugador, avion);
     }
 
-    /** Devuelve los puntos que corresponden para una distancia dada. */
-    public int calcularPuntos(double distancia) {
-        if (distancia > 150) {
-            return 40;
-        }
-        if (distancia >= 80) {
-            return 20;
-        }
-        return 0;
-    }
-
     /** Selecciona la estrategia de impacto segun el rango de distancia. */
     private EfectoExplosion seleccionarEfecto(double distancia) {
-        if (distancia > 150) {
+        if (distancia > DISTANCIA_LEJANA) {
             return new EfectoLejana();
         }
-        if (distancia >= 80) {
+        if (distancia >= DISTANCIA_MEDIANA) {
             return new EfectoMediana();
         }
-        if (distancia >= 20) {
+        if (distancia >= DISTANCIA_CERCANA) {
             return new EfectoCercana();
         }
         return new EfectoCritica();
     }
 
-    /** Devuelve la posicion horizontal de la explosion. */
-    public double getPosX() {
-        return posX;
-    }
-
-    /** Devuelve la altitud de la explosion. */
-    public double getAltitud() {
-        return altitud;
+    @Override
+    public String toString() {
+        return "Explosion{posX=" + posX + ", altitud=" + altitud + "}";
     }
 }

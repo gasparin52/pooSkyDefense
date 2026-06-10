@@ -6,8 +6,11 @@ package pooskydefense.modelo;
  */
 public class EfectoLejana implements EfectoExplosion {
 
+    /** Puntos obtenidos por esquive perfecto. */
+    private static final int PUNTOS_LEJANA = 40;
+
     @Override
     public void aplicar(Jugador jugador, Avion avion) {
-        jugador.agregarPuntos(40);
+        jugador.agregarPuntos(PUNTOS_LEJANA);
     }
 }

@@ -8,19 +8,21 @@ public class Game {
 
     /** Cada nivel incrementa las velocidades y frecuencia en un 15%. */
     private static final double FACTOR_DIFICULTAD = 1.15;
+    /** Velocidad inicial de los drones. */
+    private static final double VEL_DRONES_INICIAL = 12;
+    /** Velocidad inicial de los misiles. */
+    private static final double VEL_MISILES_INICIAL = 15;
+    /** Frecuencia inicial de disparo. */
+    private static final double FREC_DISPAROS_INICIAL = 0.25;
 
-    /** Nivel actual mostrado por el juego. */
+    /** Numero del nivel actual. */
     private int nivel;
-    /** Numero del nivel usado para crear el siguiente objeto Nivel. */
-    private int numero;
     /** Velocidad base de los drones para el nivel actual. */
     private double velDrones;
     /** Velocidad base de los misiles para el nivel actual. */
     private double velMisiles;
     /** Frecuencia base de disparo del nivel actual. */
     private double frecDisparos;
-    /** Copia del puntaje del jugador para exponerlo facilmente. */
-    private int puntuacion;
     /** Nivel que se esta jugando en este momento. */
     private Nivel nivelActual;
     /** Jugador de la partida. */
@@ -29,17 +31,16 @@ public class Game {
     /** Construye una partida nueva con valores iniciales de dificultad. */
     public Game() {
         this.nivel = 1;
-        this.numero = 1;
-        this.velDrones = 12;
-        this.velMisiles = 150;
-        this.frecDisparos = 0.25;
+        this.velDrones = VEL_DRONES_INICIAL;
+        this.velMisiles = VEL_MISILES_INICIAL;
+        this.frecDisparos = FREC_DISPAROS_INICIAL;
         this.jugador = new Jugador(new Avion(500, 3000));
         iniciarNivel();
     }
 
     /** Crea el nivel actual usando las velocidades configuradas en el juego. */
     public void iniciarNivel() {
-        this.nivelActual = new Nivel(numero, velDrones, velMisiles, frecDisparos);
+        this.nivelActual = new Nivel(nivel, velDrones, velMisiles, frecDisparos);
     }
 
     /** Ejecuta un paso del juego y evalua si hay que avanzar de nivel. */
@@ -49,7 +50,6 @@ public class Game {
         }
 
         nivelActual.tick(jugador);
-        puntuacion = jugador.getPuntos();
 
         if (nivelActual.estaCompletado()) {
             avanzarNivel();
@@ -66,9 +66,7 @@ public class Game {
     /** Otorga bonus de nivel y crea automaticamente el siguiente nivel. */
     public void avanzarNivel() {
         jugador.agregarPuntos(300);
-        puntuacion = jugador.getPuntos();
-        numero++;
-        nivel = numero;
+        nivel++;
         calcularVelocidades();
         iniciarNivel();
     }
@@ -76,11 +74,6 @@ public class Game {
     /** Devuelve el numero de nivel visible para la partida. */
     public int getNivel() {
         return nivel;
-    }
-
-    /** Devuelve el numero interno usado para crear niveles. */
-    public int getNumero() {
-        return numero;
     }
 
     /** Devuelve la velocidad actual de drones. */
@@ -98,9 +91,9 @@ public class Game {
         return frecDisparos;
     }
 
-    /** Devuelve la puntuacion copiada desde el jugador. */
+    /** Devuelve la puntuacion actual delegando al jugador. */
     public int getPuntuacion() {
-        return puntuacion;
+        return jugador.getPuntos();
     }
 
     /** Devuelve el nivel en juego. */
