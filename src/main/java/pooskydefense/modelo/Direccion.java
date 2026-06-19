@@ -1,9 +1,7 @@
 package pooskydefense.modelo;
 
-/**
- * Enum simple para representar el movimiento horizontal.
- * Se usa tanto en el avion como en los drones.
- */
+// Dirección en el eje horizontal.
+
 public enum Direccion {
     IZQUIERDA,
     DERECHA

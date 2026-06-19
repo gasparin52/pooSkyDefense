@@ -1,12 +1,10 @@
 package pooskydefense.modelo;
 
 /**
- * Caso de esquive perfecto.
- * La explosion queda lejos y solo otorga puntos.
+ * Efecto de una explosion lejana.
  */
 public class EfectoLejana implements EfectoExplosion {
 
-    /** Puntos obtenidos por esquive perfecto. */
     private static final int PUNTOS_LEJANA = 40;
 
     @Override

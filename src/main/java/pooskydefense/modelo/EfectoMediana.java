@@ -1,14 +1,11 @@
 package pooskydefense.modelo;
 
 /**
- * Caso de esquive parcial.
- * Da puntos pero tambien reduce energia del avion.
+ * Efecto de una explosion a distancia media.
  */
 public class EfectoMediana implements EfectoExplosion {
 
-    /** Puntos obtenidos por esquive parcial. */
     private static final int PUNTOS_MEDIANA = 20;
-    /** Porcentaje de energia que se pierde en un impacto mediano. */
     private static final double DANO_MEDIANO = 20;
 
     @Override

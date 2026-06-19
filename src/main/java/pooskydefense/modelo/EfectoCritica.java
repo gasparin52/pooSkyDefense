@@ -1,16 +1,14 @@
 package pooskydefense.modelo;
 
 /**
- * Caso de impacto directo.
- * El avion no pierde energia: el jugador pierde una vida inmediatamente.
+ * Efecto de un impacto critico.
  */
 public class EfectoCritica implements EfectoExplosion {
 
     @Override
     public void aplicar(Jugador jugador, Avion avion) {
         jugador.perderVida();
-        // Restaurar el avion para evitar que Nivel.tick() detecte estaDestruido()
-        // y descuente una segunda vida en el mismo tick.
+        // Se restaura para evitar que el mismo tick descuente una segunda vida.
         avion.restaurar();
     }
 }
